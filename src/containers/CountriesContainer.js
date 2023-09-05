@@ -1,11 +1,18 @@
 import { useState, useEffect } from "react";
-import Country from "../components/Country";
+
 import CountryList from "../components/CountryList";
+import VisitedCountryList from "../components/VistedCountryList";
 
 const CountriesContainer = () => {
   const [countries, setCountries] = useState([]);
-  const [vistedCountries, setVisitedCountries] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [visitedCountries, setVisitedCountries] = useState([]);
+  const [filteredCountries, setFilteredCountries] = useState([]);
+  const [visited, setVisited] = useState(false)
+
+
+
+
+
 
   const fetchData = async () => {
     try {
@@ -20,28 +27,74 @@ const CountriesContainer = () => {
         population: country.population,
         flagEmoji: country.flag,
         flagImg: country.flags.png,
-        region: `${country.region} - ${country.subregion}`
+        region: `${country.region} - ${country.subregion}`,
+
       }));
 
       setCountries(extractedData);
-      setLoading(false); // Data is now loaded
+
     } catch (error) {
       console.error("Error fetching data:", error);
-      setLoading(false); // Set loading to false even on error
     }
   };
+
+
+
 
   useEffect(() => {
     console.log("loading data");
     fetchData();
   }, []);
 
+
+
+  const moveCountryToVisited = (countryToMove) => {
+    const updatedVisited = [countryToMove, ...visitedCountries];
+    setVisitedCountries(updatedVisited);
+    setCountries(countries.filter((country) => country.name !== countryToMove.name));
+  };
+  
+  const moveCountryToAll = (countryToMove) => {
+    const updatedAllCountries = [countryToMove, ...countries];
+    setCountries(updatedAllCountries);
+    setVisitedCountries(visitedCountries.filter((country) => country.name !== countryToMove.name));
+  };
+  
+
+// const filterByName = (name) => {
+//     setFiltered(true);
+//     const filteredCountries = [];
+
+//     countries.forEach((country) => {
+//         if(country.name.toLowerCase().includes(name.toLowerCase())){
+//             filteredCountries.push(country);
+//         }
+//     });
+//     setFilteredCountries(filteredCountries);
+// }
+
+
   return (<>
 
-      <h1> Countries</h1>
+      
     <div className="country-container">
-      {loading ? <p>Loading...</p> : <CountryList countries={countries} />}
+
+        <div className="column">
+            {countries 
+                ? <CountryList 
+                countries={countries} 
+                moveCountryToVisited={moveCountryToVisited}
+                 />
+                : <p>Loading...</p>  }
+        </div>
+
+        <div className="column">
+            <VisitedCountryList 
+            visitedCountries={visitedCountries}  
+            moveCountryToAll={moveCountryToAll} />
+        </div>
     </div>
+
     </>
   );
 };
