@@ -1,5 +1,5 @@
 # React
-
+live - https://abdulaziz-mi.github.io/w10d2_countries_react_lab/
 ## RESTCountries Exercise
 
 This task is going to look pretty familiar. We saw the RESTCountries API previously within the JavaScript `fetch()` lab. We're going to be revisiting it here, touching on some of the same topics, but this time with our fancy new React tools under our belt.
