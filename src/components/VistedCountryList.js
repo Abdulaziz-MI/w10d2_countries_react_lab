@@ -5,8 +5,7 @@ const VisitedCountryList = ({visitedCountries, moveCountryToAll}) => {
       <Country
       country={country}
       key={country.name}
-      checked={true} 
-      moveCountryToAll={moveCountryToAll}
+      f={moveCountryToAll}
     />
       ));
     
@@ -15,7 +14,7 @@ const VisitedCountryList = ({visitedCountries, moveCountryToAll}) => {
       <div className="countries-container">
       <h2>Visited</h2>
         {mappedVisitedCountries}
-      </div>;
+      </div>
       </>) 
     };
 

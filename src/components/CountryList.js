@@ -4,12 +4,12 @@ import Country from "./Country";
 const CountryList = ({ countries, moveCountryToVisited }) => {
 
 
-    const mappedCountries = countries.map((country, index) => (
+    const mappedCountries = countries.map((country) => (
       <Country
       country={country}
       key={country.name}
-      checked={false}
-      moveCountryToVisited={moveCountryToVisited}
+
+      f={moveCountryToVisited}
     />
     ));
   

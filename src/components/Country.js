@@ -1,20 +1,8 @@
-
-import React, { useState } from "react";
-
-const Country = ({ country, moveCountryToVisited, moveCountryToAll  }) => {
+const Country = ({ country, f  }) => {
 
 
-    const [checked, setChecked] = useState()
-
-    const handleCheck = () => {
-        setChecked(!checked);
-        if(!checked){
-            moveCountryToVisited(country);
-            setChecked(false);
-        } else{
-            moveCountryToAll(country);
-            setChecked(true);
-        }
+    const handleClick = () => {
+        f(country)
     }
 
 
@@ -22,9 +10,8 @@ const Country = ({ country, moveCountryToVisited, moveCountryToAll  }) => {
   return (
     <div className="country">
       <h3>{country.name} {country.flagEmoji} 
-      
-      <input type="checkbox"
-      onChange={handleCheck} checked={checked} />
+       
+      <input type="checkbox" onClick={handleClick}/>
 
     </h3>
       <p>Capital: {country.capital} </p>
